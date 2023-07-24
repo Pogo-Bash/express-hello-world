@@ -2,51 +2,17 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 3001;
 
-app.get("/", (req, res) => res.type('html').send(html));
+// Serve static files from the "public" folder
+app.use(express.static(__dirname + "/public"));
+
+// Define routes for different HTML pages
+app.get("/", (req, res) => res.sendFile(__dirname + "/public/index.html"));
+app.get("/performance", (req, res) => res.sendFile(__dirname + "/public/performance.html"));
+app.get("/photos", (req, res) => res.sendFile(__dirname + "/public/photos.html"));
+app.get("/events", (req, res) => res.sendFile(__dirname + "/public/events.html"));
+app.get("/contact", (req, res) => res.sendFile(__dirname + "/public/contact.html"));
 
 const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 server.keepAliveTimeout = 120 * 1000;
 server.headersTimeout = 120 * 1000;
-
-const html = `
-<!DOCTYPE html>
-<html lang>
-  <head>
-    <script src="script.js"></script>
-    <meta charset="UTF-8">
-    <title>Ochin Pakhi</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <header>
-      <h1>Welcome to Ochin Pakhi</h1>
-      <nav>
-        <ul>
-          <li><a href="index.html" class="nav-button">Home</a></li>
-          <li><a href="performance.html" class="nav-button">Performances</a></li>
-          <li><a href="photos.html" class="nav-button">Photos</a></li>
-          <li><a href="events.html" class="nav-button">Events</a></li>
-          <li><a href="contact.html" class="nav-button">Contact</a></li>
-        </ul>
-      </nav>
-    </header>
-    <main>
-      <h2>About Us</h2>
-      <p>Ochin Pakhi, a Bengali music band from Chicago, is a group of spiritually motivated, fun-loving musicians who perform different styles of folk songs from West Bengal and Bangladesh.
-
-        "Ochin Pakhi" (অচিন পাখি) is a Bengali phrase that translates to “The unknown bird” and refers to the heart. This phrase was first used by Lalon Fakir (Shah), a prominent Bengali philosopher, Baul saint, mystic, songwriter, and social reformer, in one of his famous songs “Khachar Bhitor Ochin Pakhi” (খাঁচার ভিতর অচিন পাখি).
-      </p>
-      <p>
-        Ochin Pakhi performs folk songs from West Bengal, India and Bangladesh; they have performed: Rabindra Sangeet (Songs of Rabindranath Tagore), Nazrul Geeti (Songs of Kazi Nazrul Islam), Baul-Fakiri (the traditional songs of the Baul-Fakir community in Bengal), Bhatiyali (boatman songs), Jhumur (melodies from the western part of Bengal), and original compositions. Pieces are performed with ethnic instruments including ektara, dubki, khol, tabla, manjira, khamak, bansuri, dholak, banjo, and other drums.
-
-        The mission of Ochin Pakhi is to present songs with colorful melodies and eclectic rhythm from greater Bengal to the world. Its members are intensely collaborative and create a cross-cultural platform. Ochin Pakhi is an endless journey of music: on one hand, it bears strong tradition, and on the other, it carries forth beyond all cultural boundaries.
-      </p>
-    </main>
-  </body>
-  </html>
-
-`
